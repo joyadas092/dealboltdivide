@@ -12,7 +12,13 @@ from unshortenit import UnshortenIt
 # from playwright.sync_api import sync_playwright
 import os
 from dotenv import load_dotenv
-
+import sys
+if sys.version_info >= (3, 14):
+    try:
+        asyncio.get_event_loop()
+    except RuntimeError:
+        asyncio.set_event_loop(asyncio.new_event_loop())
+      
 load_dotenv()
 api_id = int(os.getenv("API_ID"))
 api_hash = os.getenv("API_HASH")
