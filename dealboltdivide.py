@@ -247,11 +247,14 @@ async def send(id, message,processed):
         try:
             modifiedtxt = compilehyperlink(message).replace('@under_99_loot_deals', '@shopsy_meesho_Deals')
             if 'amazon' in modifiedtxt:
-                # print('amzn working')
+                urls = extract_link_from_text2(modifiedtxt)
+                Newtext = modifiedtxt
+                for url in urls:
+                    Newtext = Newtext.replace(url, f'<b><a href={url}>Buy Now</a></b>')
                 await app.send_photo(chat_id=id,
                                      # photo=message.photo.file_id,
                                      photo=processed,
-                                     caption=f'<b>{tinycovert(modifiedtxt)}</b>' + "\n\n<b>👉 <a href ='https://t.me/addlist/MKe9ykWEua8xZWE1'>For More Deals 🥳, Click & JOIN FAST🔥</a> 👈</b>",
+                                     caption=f'<b>Newtext</b>' + "\n\n<b>👉 <a href ='https://t.me/addlist/MKe9ykWEua8xZWE1'>For More Deals 🥳, Click & JOIN FAST🔥</a> 👈</b>",
                                      reply_markup=Promo,
                                      disable_notification = not notify )
             else:
@@ -268,9 +271,13 @@ async def send(id, message,processed):
 
     elif message.text:
         modifiedtxt = compilehyperlink(message).replace('@under_99_loot_deals', '@shopsy_meesho_Deals')
-        if 'tinyurl' in modifiedtxt or 'amazon' in modifiedtxt:
+        if 'amazon' in modifiedtxt:
+                urls = extract_link_from_text2(modifiedtxt)
+                Newtext = modifiedtxt
+                for url in urls:
+                    Newtext = Newtext.replace(url, f'<b><a href={url}>Buy Now</a></b>')
             await app.send_message(chat_id=id,
-                                   text=f'<b>{tinycovert(modifiedtxt)}</b>',
+                                   text=f'<b>{Newtext}</b>',
                                    disable_web_page_preview=True,disable_notification = not notify)
         else:
             await app.send_message(chat_id=id,
